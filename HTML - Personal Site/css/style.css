@@ -1,0 +1,33 @@
+body{
+  background-color: #eeeeee;
+  font-family: 'Ubuntu';font-size: 15px;
+}
+
+hr{
+  border-style: none;
+  border-top-style: dotted;
+  border-color: #393e46;
+  border-width: 4px;
+  width: 1.5%;
+}
+
+.perfil{
+  border-radius: 50%;
+  border: 1px solid #4ecca3;
+  padding: 5px;
+  width: 120px;
+}
+
+.perfil:hover {
+  box-shadow: 0 0 10px 1px rgba(0, 140, 186, 0.5);
+}
+
+h1{
+  color: #4ecca3;
+}
+h4{
+  color: #232931;
+}
+a:hover{
+  color: #4ecca3;
+}
