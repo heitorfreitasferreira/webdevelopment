@@ -1,0 +1,117 @@
+Comandos aprendidos até aqui:
+
+
+JS Puro: 
+
+array.push("valor adicionado a prox casa do array")
+
+Math.floor(Math.random() * 10);     // returns a random integer from 0 to 9
+
+
+
+DOM:
+
+document.getElementBy"ALGUMA COISA(id,class,TagName)"(PARAMETRO)
+
+document.querySelector(parametro igual faria pra indentificar o elemento no css)
+
+style.coisaQueQuerMudarDoCss
+
+classList ->RETORNA UM VETOR COM AS CLASSES DO OBJ
+
+classList.add("classeQueSeráAdicionada")
+
+classList.remove("classeQueSeráRemovida")
+
+classList.toggle("classeQueSeráAdicionadaOuRemovida") -> se já tiver a class vai tirar, se não tiver, adiciona
+
+innerHTML -> retorna o HTML dentro do obj, pode receber valores para alterar o conteudo do obj (tem q ser string)
+
+textContent = "Texto adicionado"
+
+attributes -> retorna os atributos do obj em forma de array
+
+getAttribute("atributo") -> retorna um atributo expecifico do obj
+
+setAttribute("atributoASerMudado, atributoQueSeraTrocado") -> retorna um atributo expecifico do obj
+
+
+
+
+jQuery:
+
+$ === document.querySelector
+
+$(".ex-class").css("atributo") => retorna o valor do atributo, por exemplo se o atributo for color, pode retornar black
+
+$(".ex-class").css("atributo","valor") => altera o atributo para o valor do segundo parametro
+
+$(".ex-class").addClass("classe-a-ser-adicionada outra-classe-a-ser-adicionada ...")
+
+$(".ex-class").removeClass("classe-a-ser-removida outra-classe-a-ser-removida ...")
+
+$(".ex-class").hasClass("class-a-ver-se-tem") => retorna true ou false
+
+$(".ex-class").text = document.querySelector(".ex-class").textContent
+
+$(".ex-class").html = document.querySelector(".ex-class").innerHTML
+
+$(".ex-class").attr("atributo-do-obj") ==ex==>  $("img").attr("src") // retorna o local onde a img esta 
+
+$(".ex-class").attr("atributo-do-obj","conteudo-a-ser-add-ou-mudado") ==ex==>  $("a").attr("src","https://www.google.com") // altera ou 
+adiciona o endereço do link para https://www.google.com
+
+$(".ex-class").click(function(){}); ==> adiciona um event listner ao obj que tenha a class "ex-class"
+
+$(document).keypress(function(event){ console.log(event.key);    }); ===> toda vez que clicar alguma tecla será mostrado no console
+
+$(document).on("jsEvent",function(){    }); ==> detecta algum evento generico a ser especificado // https://developer.mozilla.org/en-US/docs/Web/Events 
+
+$("h1").before("html-adicionado") ==> adiciona uma linha de html antes do "h1"
+
+$("h1").after("html-adicionado") ==> adiciona uma linha de html depois do "h1"
+
+$("h1").prepend("html-adicionado") ==> adiciona uma linha de html dentro do "h1", antes do conteudo dentro dele, por exemplo antes do texto presente nele
+
+$("h1").apend("html-adicionado") ==> adiciona uma linha de html dentro do "h1", depois do conteudo dentro dele, por exemplo depois do texto presente nele
+
+$("h1").remove() ==> remove todos os h1 da pag
+
+$("h1").hide() ==> "esconde" todos os h1 da pag
+
+$("h1").show() ==> mostra todos os h1 escondidos da pag
+
+
+
+
+NodeJS
+
+{
+    const express = require('express')
+    const app = express()
+    const port = 3000;//porta padrão para se trabalhar com node
+
+    app.get('/', (req, res) => res.send('Hello World!'))
+    app.listen(port, () => console.log(`Server rodando em http://localhost:${port}`))
+}
+//sintaxe básica para inicializar um server usando o express e já o inicializando
+
+
+
+sudo npm install express --save//sempre instalar o express no diretório
+
+sudo npm install "DEPENDENCIA"// instalar pacote de dependencia com npm, sempre olhar a documentação de cada dependecia que for usar
+
+node arqv.js//roda o server uma vez, qualquer alteração deverá ser reiniciado o server com ctrl-C e iniciando com o mesmo comando
+
+nodemon arqv.js//roda o live server
+
+atom . => abre o atom no diretório que está o terminal
+
+const bodyParser = ("body-parser")
+    metodos:
+        app.use(bodyParser.text())
+        app.use(bodyParser.json())
+        app.use(bodyParser.urlencoded(extended: true))
+
+
