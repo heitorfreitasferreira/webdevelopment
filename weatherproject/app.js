@@ -26,8 +26,8 @@ app.post("/",function(req,res){
       const temp        = weatherData.main.temp
       const description = weatherData.weather[0].description
       //tentativa de traduzir inicio
-      const result = translate('Hello world', 'ja');
-      console.log(result);
+        //const result = translate('Hello world', 'ja');
+        //console.log(result);
       //tentativa de traduzir fim
       const icon        = weatherData.weather[0].icon
       const imageURL = "https://openweathermap.org/img/wn/"+icon+"@2x.png"
