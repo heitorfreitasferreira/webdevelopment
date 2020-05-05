@@ -2,7 +2,7 @@ const express       = require("express")
 const bodyParser    = require("body-parser")
 const request       = require('request');
 const https         = require("https")
-const porta         = 3000
+const porta         = process.env.PORT
 const app           = express()
 const apikey        ="413297ecbbeac61b780210b5bf6c3b82-us8"
 const listId        ="aea789ed95"
@@ -64,7 +64,7 @@ app.post("/failure",function(req,res){
 
 
 
-app.listen(porta,function(){
+app.listen(porta || 3000,function(){
   console.log("Server rodando na porta " + porta);
 })
 
