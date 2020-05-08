@@ -1,0 +1,18 @@
+<%- include('header') -%>
+    <div class="box" id="heading">
+      <h1><%=todayHumanFormated%></h1>
+    </div>
+
+    <div class="box">
+      <% for (var i = 0; i < arrayOfItens.length; i++) { %>
+        <div class="item" >
+          <input type="checkbox">
+          <p> <%=arrayOfItens[i]%> </p>
+        </div>
+      <%}%>
+      <form class="item" action="/" method="post">
+        <input type="text" name="addIten" class="form-control top" placeholder="Add iten" autocomplete="off"required autofocus>
+        <button type="submit" name="button">+</button>
+      </form>
+    </div>
+<%- include('footer'); -%>
