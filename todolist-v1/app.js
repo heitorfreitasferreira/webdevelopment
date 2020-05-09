@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 
 var arrayOfItens = []
 app.get("/", function (req, res) {
-  var todayHumanFormated = date.getDay()
+  var todayHumanFormated = date.getDate()
 
   todayHumanFormated = todayHumanFormated[0].toUpperCase() + todayHumanFormated.slice(1);
   res.render("list", {

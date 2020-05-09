@@ -96,7 +96,8 @@ footer {
   color: rgba(0, 0, 0, 0.5);
   text-align: center;
 }
-footer p{
+
+footer p {
   color: rgba(255, 255, 255, 0.5);
   font-size: 0.7rem;
 }
