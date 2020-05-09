@@ -6,25 +6,30 @@ const porta = 3000
 const app = express()
 
 
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 app.use(express.static("public"))
 app.set('view engine', 'ejs');
 
 
 var arrayOfItens = []
-app.get("/",function(req,res){
+app.get("/", function (req, res) {
   var todayHumanFormated = date.getDay()
 
-  todayHumanFormated = todayHumanFormated[0].toUpperCase() +  todayHumanFormated.slice(1);
-  res.render("list",{todayHumanFormated: todayHumanFormated,arrayOfItens: arrayOfItens})//express olha no diretorio views por um arquivo chamado list, procura por uma tag q tenha o nome kindOfDay e passa o valor da var day pra ela
+  todayHumanFormated = todayHumanFormated[0].toUpperCase() + todayHumanFormated.slice(1);
+  res.render("list", {
+    todayHumanFormated: todayHumanFormated,
+    arrayOfItens: arrayOfItens
+  }) //express olha no diretorio views por um arquivo chamado list, procura por uma tag q tenha o nome kindOfDay e passa o valor da var day pra ela
 })
 
-app.post("/",function(req,res){
+app.post("/", function (req, res) {
   var newIten = req.body.addIten;
   arrayOfItens.push(newIten);
   res.redirect("/")
 })
 
-app.listen(porta,function(){
-  console.log("Server is up and running on port: "+porta);
+app.listen(porta, function () {
+  console.log("Server is up and running on port: " + porta);
 })
