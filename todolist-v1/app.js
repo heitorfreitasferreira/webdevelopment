@@ -24,10 +24,10 @@ app.get("/", function (req, res) {
   }) //express olha no diretorio views por um arquivo chamado list, procura por uma tag q tenha o nome kindOfDay e passa o valor da var day pra ela
 })
 
-app.post("/", function (req, res) {
+app.post("/compose", function (req, res) {
   var newIten = req.body.addIten;
   arrayOfItens.push(newIten);
-  res.redirect("/")
+  res.redirect("/compose")
 })
 
 app.listen(porta, function () {

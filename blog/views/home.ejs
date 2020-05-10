@@ -1,0 +1,17 @@
+<%- include('partials/header') -%>
+<% arrayOfPosts.forEach(post => {%>
+<a href="/posts/<%= post.titulo %>">
+  <div class="block">
+    <h1>
+      <%= post.titulo %>
+    </h1>
+    <% if (post.corpo.length>=140) { %>
+    <p> <%=post.corpo.substring(0,140)+"..."%> </p>
+    <% } else { %>
+    <p> <%=post.corpo%> </p>
+    <% } %>
+  </div>
+  <% }) %>
+
+</a>
+<%- include('partials/footer'); -%>

@@ -1,35 +1,131 @@
+/* 
+    colors:
+    https: //coolors.co/3a405a-f9dec9-99b2dd-e9afa3-685044
+        #3A405A
+        #99B2DD
+        #E9AFA3
+        #F9DEC9
+        #685044
+    
+    fonts:
+        font-family: 'Montserrat',sans-serif;
+        font-family: 'Karla',sans-serif;
+
+*/
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Karla',
+        sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Montserrat', sans-serif;
+    color: #685044;
+}
+
+p {
+    color: #3A405A;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.block {
+    margin: 2rem 0;
+    border: 2px;
+    border-style: solid;
+    border-color: rgba(249, 222, 201, 0.15);
+
+    border-radius: 4px;
+    padding: 1rem;
+}
+
+.block:hover {
+    background-color: rgba(249, 222, 201, 0.2);
+    box-shadow: 0 4px 4px 2px rgba(249, 222, 201, 0.5);
+}
+
+
+.block a {
+    color: #685044;
+
+}
+
+
 .container-fluid {
     padding-top: 70px;
     padding-bottom: 70px;
 }
+
 .navbar {
     padding-top: 15px;
     padding-bottom: 15px;
     border: 0;
     border-radius: 0;
-    margin-bottom: 0;
+    margin-bottom: 2rem;
     font-size: 12px;
     letter-spacing: 5px;
-}
-.navbar-nav  li a:hover {
-    color: #1abc9c !important;
+    background-color: rgba(249, 222, 201, 0.5);
 }
 
-.footer-padding {
-	padding-bottom: 60px;
+a.nav-link,
+.navbar-brand {
+    color: #685044;
+}
+
+.navbar-nav li a:hover,
+.navbar-brand:hover {
+    color: #3A405A !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(104, 80, 68,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+
+.content {
+    flex: 1 0 auto;
 }
 
 .footer {
-	position: absolute;
-	text-align: center;
-	bottom: 0;
-	width: 100%;
-	height: 60px;
-	background-color: #1abc9c;
+    text-align: center;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(249, 222, 201, 0.5);
+
+    flex-shrink: 0;
 }
 
 .footer p {
-	margin-top: 25px;
-	font-size: 12px;
-  color: #fff;
+    margin-top: 25px;
+    font-size: 12px;
+    color: #685044;
+}
+
+form {
+    width: 50%;
+
+}
+
+form .btn-outline-dark {
+    color: #685044;
+    border-color: #685044;
+}
+
+form .btn-outline-dark:hover {
+    color: #fff;
+    background-color: #685044;
+    border-color: #685044;
 }
