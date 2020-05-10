@@ -32,10 +32,13 @@ h5,
 h6 {
     font-family: 'Montserrat', sans-serif;
     color: #685044;
+    overflow: scroll;
 }
 
 p {
     color: #3A405A;
+    line-height: 2;
+    font-size: 1rem;
 }
 
 a:hover {
@@ -75,7 +78,6 @@ a:hover {
     border: 0;
     border-radius: 0;
     margin-bottom: 2rem;
-    font-size: 12px;
     letter-spacing: 5px;
     background-color: rgba(249, 222, 201, 0.5);
 }
@@ -105,13 +107,14 @@ a.nav-link,
     height: 60px;
     background-color: rgba(249, 222, 201, 0.5);
 
+    padding-bottom: 1rem;
     flex-shrink: 0;
 }
 
 .footer p {
     margin-top: 25px;
-    font-size: 12px;
     color: #685044;
+    margin-bottom: 0;
 }
 
 form {
