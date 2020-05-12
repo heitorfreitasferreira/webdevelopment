@@ -2,7 +2,7 @@
 
 <h1>Compose</h1>
 
-<form action="/compose" method="post">
+<form action="/compose" method="post" name="formInputPost" onsubmit="return validateForm()">
   <div class="form-group">
 
     <label for="exampleFormControlInput1">Título</label>
@@ -16,5 +16,24 @@
   </div>
   <button class="btn btn-large btn-outline-dark" type="submit">Publicar</button>
 </form>
-
+<script>
+  function validateForm() {
+    // var textError = ""
+    var errou = false;
+    var corpoTexto = document.forms["formInputPost"]["textoPublicar"].value;
+    var tituloTexto = document.forms["formInputPost"]["tituloPublicar"].value;
+    if (corpoTexto == "" || tituloTexto == "") {
+      errou = true
+      alert("Preencha todos os campos")
+    }
+    if (tituloTexto.length > 100) {
+      errou = true
+      alert("Titulo muito grande")
+    }
+    if (errou === true) {
+      // alert(textError)
+      return false
+    }
+  }
+</script>
 <%- include('partials/footer'); -%>

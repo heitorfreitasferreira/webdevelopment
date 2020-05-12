@@ -32,7 +32,6 @@ h5,
 h6 {
     font-family: 'Montserrat', sans-serif;
     color: #685044;
-    overflow: scroll;
 }
 
 p {
@@ -79,7 +78,7 @@ a:hover {
     border-radius: 0;
     margin-bottom: 2rem;
     letter-spacing: 5px;
-    background-color: rgba(249, 222, 201, 0.5);
+    background-color: rgb(249, 222, 201);
 }
 
 a.nav-link,
@@ -131,4 +130,8 @@ form .btn-outline-dark:hover {
     color: #fff;
     background-color: #685044;
     border-color: #685044;
+}
+
+textarea.form-control {
+    height: 50vh;
 }

@@ -1,0 +1,69 @@
+⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️ Comandos ⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️⌨️
+
+git init => inicializa um repositório git no diretório atual
+
+git status => mostra como está a área de "stage"
+
+git add <file-name> => adiciona o arquivo na staging area
+git add . => adiciona todos os arquivos "unstaged" à staging area
+git rm --cached -r <file-name> =>remove o arquivo da staging area
+git rm --cached -r . => remove todos os arquivos da staging area
+
+git commit -m "<commit message>" => commita todas as mudanças feitas e staged
+
+git log => mostra as informações do commit, como quem fez, quando foi feito, o código hash do commit e a commit message
+
+git diff <file-name> => compara o arquivo atual com como ele estava em seu ultimo check point
+
+git checkout <file-name> => volta o arquivo para a ultima versão commitada no repositório
+
+git remote add origin <url-do-repositório-remóto> => fala ao repositório local que foi criado um repositório remóto na internet e que quero transferir meus commits para lá
+
+git push -u <remote(normalmente origin)> <branch> => faz o upload do seu repositório local ao repositório remóto
+
+.gitignore:
+	#blablabla => comentário
+	*.txt => marca todos os arquivos que terminam com .txt
+	arquivo.extensão => marca esse arquivo para ser ignorado pelo git
+
+git clone <url-do-repositório-remoto> => cria um repositório local baseado no repositório remoto indicado
+
+git branch <nome-da-branch> => cria uma nova branch no seu repositório
+git branch => mostra as branches do repositório, o * indica em qual branch você está
+git checkout <nome-da-branch> => muda para a branch indicada
+
+git merge <nome-da-branch-a-ser-merged> => faz o merge de uma branch, abre o vim que te deixa adicionar uma mensagem ao merge, para salvar e sair do editor Vim digite <:q!>
+
+
+
+🗣️🗣️🗣️🗣️🗣️🗣️🗣️🗣️🗣️🗣️🗣️🗣️🗣️ Terminologias 🗣️🗣️🗣️🗣️🗣️🗣️🗣️🗣️🗣️🗣️🗣️🗣️
+
+local repository => seu repositório local, diretório que contem a pasta .git
+remote repositóry => local onde você guarda e expõe seu repositório e todas as suas versões e branches para uma cominidade ou site, normalmente isso é feito no Github, mas existem outras ferramentas como o Bitbucket, Phabricator, GitLab, entre outros
+
+staging area => área onde os arquivos estão sendo trakeados pelo git e serão commitados ao repositório
+
+commit => salvar uma nova versão com as alterações que foram "staged", como se fosse um novo check point de um jogo
+
+commit message => nome do check point, tente ser o mais explicito possível para mais tarde, saber o que essas mudanças fizeram com o projeto (Sempre escrever no presente)
+
+origin => nome do remote repository, por convensão é dado esse nome, mesmo podendo ser qualquer outro nome aleatório
+
+brach => "galho" do seu projeto, sendo o "tronco" a master branch e as outras branchs os galhos que saem do tronco e de outros galhos, essas branchs podem ser juntadas ao tronco principal do seu projeto por meio de um merge
+
+merge => junta dois branches
+
+master branch =>principal segmento do seu repositório, normalmente é a versão que está em produção, é onde fica o seu progresso principal, é considerado boa prática manter somente versões estáveis dos seus projetos. Ao criar novas funcionalidades a algum projeto, de preferencia para criar em alguma branch paralela, e somente quando essa nova funcionalidade estiver pronta e testada dar o merge dessa branch paralela na master
+
+.gitignore => arquivo dentro do seu diretório que indica quais arquivos não podem ser commitados para o versionamento(o ponto está ali pois é um arquivo escondido)
+
+https://github.com/github/gitignore => templates de gitignore's para vários tipos de projetos feito pelo time do Github
+
+README.md => arquivo que diz outras pessoas sobre o que é o seu repositório, ele é formatado em linguagem de marcação e normalmente é usado como a documentação do seu projeto/repositório
+
+fork => copiar um repositório do github de alguém para você, criando uma versão sua que pode alterar e tem total permissões igual teria se fosse um criado por você, inclusive pode clonar esse repositório remoto para a máquina e altera-lo, caso queira também é possível fazer um pull request para o repositório original, um exemplo seria pegar o repositório do kernel do Linux, alterar e criar uma feature interessante e pedir para a Linux Foundation adicionar essa feature sua na versão oficial do sistema
+
+pull request => pedido para dar merge de um fork de um repositório para seu repositório original, é como fazer uma sugestão ao criador de um projeto de adicionar algo que você fez
+
+
+Para treinar e ver mais comandos veja https://learngitbranching.js.org/

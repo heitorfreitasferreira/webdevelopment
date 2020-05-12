@@ -1,0 +1,96 @@
+=====BÁSICO=====
+🚩️Create		=>
+			CREATE TABLE <table_name> (
+				column1 datatype,
+				column2 datatype,
+				columnX datatype
+			);
+			
+			
+			
+🚩️Read		=>	SELECT * FROM <table_name> ou SELECT column1, column2, columnX FROM <table_name> (O * significa "tudo")
+				SELECT * FROM <table_name> WHERE <condição>
+
+				SELECT <column>
+				FROM <table_name>
+				INNER JOIN <other_table_name> ON <table_name>.<column_name> = <other_table_name>.<column_name>;
+
+🚩️Update		=>	INSERT INTO <table_name> (column1,column2,column3,column67) VALUES (value1, value2, value3, value67)
+			
+				ou
+			
+				INSERT INTO <table_name> VALUES (value1, value2, value3, value4,value5)
+			
+				(No primeiro caso vocẽs especifica quais campos se está inserindo, no segundo está enserindo em todos os campos)
+				
+				UPDATE <table_name> SET column1 = new_value1, column2 = new_value2, ... WHERE <condição_para_alterar_somente uma_coisa> (id = 2)
+				
+				ALTER TABLE <table_name> ADD (column_added) TYPE 
+
+
+
+
+🚩️Destroy		=>	DELETE FROM <table_name> WHERE <condição> (caso não usar o WHERE toda a tabela será destruida)
+
+=====CONCEITOS======
+PRIMARY KEY => chave primária, é como um cpf do objeto da sua tabela, não existem 2 iguais em uma tabela, é a forma principal de identificar uma linha
+
+NOT NULL => não permite a criação na tabela caso o campo marcado com isso esteja vazio
+
+FOREIGN KEY => campo que liga uma tabela a outra tabela, por exemplo em uma tabela de pedido pode estar ligada a tabela de clientes pela ID do cliente
+
+
+=====EXEMPLOS======
+
+CREATE TABLE produtos (
+	id INT NOT NULL,
+	name STRING,
+	price MONEY
+	PRIMARY KEY (id)
+);
+
+INSERT INTO produtos VALUES (1, "Pen", 1.20)
+
+INSERT INTO produtos (id, name) VALUES (2, "Pencil")
+
+ALTER TABLE produtos ADD estoque INT 
+
+UPDATE produtos SET price = 2.1 WHERE ID = 2
+UPDATE produtos SET estoque = 32 WHERE ID = 1
+UPDATE produtos SET estoque = 12 WHERE ID = 2
+
+CREATE TABLE clientes (
+	id INT NOT NULL,
+	primeiro_nome STRING,
+	sobrenome STRING,
+	endereco STRING,
+	PRIMARY KEY (id)
+	
+);
+
+INSERT INTO clientes VALUES (1, "Heitor", "Freitas", "Rua das Ruas 1234") 
+
+CREATE TABLE pedidos (
+	id INT NOT NULL,
+	numero_do_pedido INT,
+	produto_id INT,
+	cliente_id INT,
+	PRIMARY KEY (id),
+	FOREINGN KEY (produto_id) REFERENCES protudos(id),
+	FOREINGN KEY (cliente_id) REFERENCES clientes(id)
+	
+);
+
+INSERT INTO pedidos VALUES (1, 1313, 2, 1)
+
+SELECT pedidos.numero_do_pedido, clientes.primeiro_nome, clientes.sobrenome,clientes.endereco 
+FROM pedidos
+INNER JOIN clientes ON pedidos.cliente_id = clientes.id;
+
+SELECT pedidos.numero_do_pedido, produtos.name, produtos.preco, produtos.estoque
+FROM pedidos
+INNER JOIN produtos ON pedidos.produto_id =  produtos.id;
+
+
+
+
