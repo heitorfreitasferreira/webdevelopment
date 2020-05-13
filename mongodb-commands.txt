@@ -1,0 +1,66 @@
+C db.collection.insertOne( {object} ) OU db.collection.insertMany()
+R db.collection.find(query,projection)
+U db.collection.opdateOne({ query }, { $set: {new_field} } )
+D db.collection.deleteOne(query/filter) OU db.collection.deleteMany(query/filter) 
+
+
+EXEMPLOS
+
+CREATE:
+
+db.users.insertMany(
+	{	
+		_id: 1,
+		nome:"heitor",
+		idade: 19,
+		status: "cadastrado"
+	},
+	{
+		_id: 2,
+		nome: "Creuza",
+		idade: 27,
+		status: "analize"
+	}
+)
+
+
+db.users.find({name: "heitor"}) => acha na collection users onde name é "heitor"
+
+db.users.find({idade:{$gt:18})} => acha na collection users onde a idade é maior que 18 
+
+db.users.find(
+	{ status: "cadastrado" },
+	{ nome: 1}
+) => acha na collection users onde a o status é cadastrado e mostra somente os campos nome desses cadastrados, sem mostrar o idade, o id ele sempre mostra a não ser que marque para não mostrar com o 0
+
+db.users.opdateOne({ _id: 1 }, { $set: { casado: "nao" } } )
+db.users.deleteOne ({ _id: 2 }) => deleta onde o id é 2
+
+COLLECTIONS = Tables
+
+
+FAZER RELAÇÕES
+
+db.users.insert(
+	{
+		_id: 3,
+		nome: "Creo",
+		idade: 99,
+		status: "cadastrado",
+		casado: "sim"
+		pets: [
+			{
+				especie: "cao",
+				sexo: "macho",
+				idade: 2,
+				raca: "viralata"
+			},
+			{
+				especie: "gato",
+				sexo: "femea",
+				idade: 4,
+				raca: "persa"
+			}
+		]
+	}
+)
