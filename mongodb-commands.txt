@@ -85,8 +85,15 @@ mongoose.connect('mongodb://localhost:27017/<SEU_DATABASE>', {
 "Quais campos devem ter minha collection?" =>
 
 const collectionSchema = mongoose.Schema({
-  campo1: type,
-  campo2: type,
+  campo1: {
+  	type: type,
+  	required: [true, 'Mensagem de erro']
+  },
+  campo2: {
+  	type: type,
+  	min: x,
+  	max: y
+  },
   campo3: type
 })
 
@@ -98,8 +105,8 @@ const DocumentModel = mongoose.model("DocumentModel", collectionSchema);
 "Ta mas como eu vou adicionar um documento baseado nesse modelo que salva nesse database com essa schema?"
 
 const object = new DocumentModel({
-	campo1: BLA
-	campo2: "Blablabla"
+	campo1: BLA,
+	campo2: "Blablabla",
 	campo3: 0.4
 })
 
@@ -118,10 +125,25 @@ DocumentModel.insertMany([obj1, obj2,objN], function(err){
 "E para acessar meu documento dentro do node sem ir direto no terminal que ta rodando a db?"
 
 DocumentModel.find(function(err, docs){
-  if(err){
-    console.log(err);
-  } else{
-    console.log(docs);
-  }
+	if(err){
+		mongoose.connection.close() 
+		console.log(err);
+	    } else{
+		console.log(docs);
+	}
 })
+(Esse docs é um array de objs comum)
+
+DocumentModel.deleteOne({query: content}, function(err){
+	if(err){
+		mongoose.connection.close() 
+		console.log(err);
+	    } else{
+		console.log("deleted");
+	}
+})
+
+
+
+
 
