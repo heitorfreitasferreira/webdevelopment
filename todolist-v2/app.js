@@ -4,7 +4,7 @@ const mongoose = require("mongoose")
 const _ = require("lodash")
 
 const app = express();
-const port = 3000
+const port = process.env.PORT
 
 app.set('view engine', 'ejs');
 //Funções
@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/todolistDB", {
+mongoose.connect("mongodb+srv://heitorfreitasf:11921bcc026@to-do-list-enkj8.mongodb.net/todolistDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -166,5 +166,5 @@ app.post("/delete", function (req, res) {
 
 
 app.listen(port, function () {
-  console.log("Server started on port " + port);
+  console.log("Server started on port " + port || 3000);
 });
