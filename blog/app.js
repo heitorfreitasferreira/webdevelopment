@@ -91,6 +91,9 @@ app.get("/posts/:postId", function (req, res) {
   const postId = req.params.postId;
   // console.log(postId);
   Post.findById(postId, function (err, post) {
+    if (!post) {
+      res.render("not-found")
+    }
     if (!err) {
       // console.log(post);
       res.render("post", {
@@ -98,18 +101,11 @@ app.get("/posts/:postId", function (req, res) {
         corpo: post.content
       })
     } else {
-      console.log("Erro:" + err + "\n Ao tentar achar o post, provavelmente não existe esse post");
+      console.log(err);
     }
+
+
   })
-  // var tituloRequerido = lodash.kebabCase(req.params.tituloDoPost);
-
-  // arrayOfPosts.forEach((post) => {
-
-  //   if (tituloRequerido === lodash.kebabCase(post.titulo)) {
-
-  //   }
-
-  // });
 })
 app.get("/not-found", function (req, res) {
   res.render("not-found")
