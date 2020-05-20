@@ -4,7 +4,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const lodash = require("lodash");
-
+const mongoose = require("mongoose")
+const Schema = mongoose.Schema;
 const port = 3000
 
 const homeStartingContent = "Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit amet justo. Viverra tellus in hac habitasse. Imperdiet proin fermentum leo vel orci porta. Donec ultrices tincidunt arcu non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.";
@@ -13,11 +14,32 @@ const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rho
 
 const app = express();
 
-var arrayOfPosts = [{
-  titulo: 'Bem vindo ao meu blog',
-  corpo: 'Clique no icone de "+" no menu do site para adicionar postagens',
-  postDefault: true
+mongoose.connect("mongodb://localhost:27017/blogDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+
+const postSchema = new Schema({
+  title: {
+    type: String,
+    maxlength: 140,
+    required: [true, "Faltou  do post"]
+  },
+  content: {
+    type: String,
+    required: [true, "Faltou corpo do post"]
+  }
+});
+
+
+const Post = mongoose.model("Post", postSchema)
+
+const defaultPost = [{
+  title: 'Bem vindo ao meu blog',
+  content: 'Clique no icone de "+" no menu do site para adicionar postagens'
 }]
+
+
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({
@@ -29,9 +51,24 @@ app.use(express.static("public"));
 // GETS--- --- --- --- --- --- --- --- --- --- 
 
 app.get("/", function (req, res) {
-  res.render("home", {
-    arrayOfPosts: arrayOfPosts
+  Post.find({}, (err, foundPosts) => {
+    // console.log(foundPosts);
+    if (foundPosts.length === 0) {
+      Post.insertMany(defaultPost, (error) => {
+        if (error) {
+          console.log("Erro ao inserir post default");
+        } else {
+          console.log(("Sucesso ao inserir post default"));
+        }
+      });
+      res.redirect("/");
+    } else {
+      res.render("home", {
+        arrayOfPosts: foundPosts
+      })
+    }
   })
+
 })
 
 app.get("/about", function (req, res) {
@@ -50,20 +87,29 @@ app.get("/compose", function (req, res) {
   res.render("compose")
 })
 
-app.get("/posts/:tituloDoPost", function (req, res) {
-
-  var tituloRequerido = lodash.kebabCase(req.params.tituloDoPost);
-
-  arrayOfPosts.forEach(function (post) {
-
-    if (tituloRequerido === lodash.kebabCase(post.titulo)) {
+app.get("/posts/:postId", function (req, res) {
+  const postId = req.params.postId;
+  // console.log(postId);
+  Post.findById(postId, function (err, post) {
+    if (!err) {
+      // console.log(post);
       res.render("post", {
-        titulo: post.titulo,
-        corpo: post.corpo
+        titulo: post.title,
+        corpo: post.content
       })
+    } else {
+      console.log("Erro:" + err + "\n Ao tentar achar o post, provavelmente não existe esse post");
     }
+  })
+  // var tituloRequerido = lodash.kebabCase(req.params.tituloDoPost);
 
-  });
+  // arrayOfPosts.forEach((post) => {
+
+  //   if (tituloRequerido === lodash.kebabCase(post.titulo)) {
+
+  //   }
+
+  // });
 })
 app.get("/not-found", function (req, res) {
   res.render("not-found")
@@ -73,23 +119,24 @@ app.get("/not-found", function (req, res) {
 // POSTS--- --- --- --- --- --- --- --- --- --- 
 
 app.post("/compose", function (req, res) {
-
-  // if (req.body.textoPublicar >= 140) {
-  //   const cortar = true
-  // } else {
-  //   const cortar = false
+  const tituloPublicar = req.body.tituloPublicar
+  const textoPublicar = req.body.textoPublicar
+  // const poste = {
+  //   titulo: req.body.tituloPublicar,
+  //   corpo: req.body.textoPublicar,
+  //   postDefault: false
   // }
-  const post = {
-    titulo: req.body.tituloPublicar,
-    corpo: req.body.textoPublicar,
-    postDefault: false
-  }
-  if (arrayOfPosts[0].postDefault === false) {
-    arrayOfPosts.push(post);
-  } else {
-    arrayOfPosts[0] = post
-  }
-  res.redirect("/")
+  const post = new Post({
+    title: tituloPublicar,
+    content: textoPublicar
+  })
+  post.save((err) => {
+    if (!err) {
+      res.redirect("/")
+    } else {
+      console.log("Erro ao salvar o post");
+    }
+  })
 })
 
 
