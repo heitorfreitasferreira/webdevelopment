@@ -4,6 +4,7 @@ const _ = require('lodash')
 const bodyParser = require('body-parser')
 const ejs = require('ejs')
 const mongoose = require('mongoose')
+const encrypt = require("mongoose-encryption") //encripta ao chamar o metodo save() do mongoose e desencrypta ao chamar o metodo find()
 
 const port = 3000
 
@@ -32,7 +33,12 @@ const userSchemma = new Schema({
     required: [true, 'Insira a senha']
   }
 })
-
+const secret = '3sseehosecredodomeusite!'
+userSchemma.plugin(encrypt, {
+  secret: secret,
+  encryptedFields: ['password'], //Faz com que somente o campo password seja encriptado
+  excludeFromEncryption: ['email'] //Faz com que somente o campo email NÃO seja encriptado
+}) //isso tem que ser feito antes de criar o mongoose.model
 const User = new mongoose.model('User', userSchemma)
 
 
