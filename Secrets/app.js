@@ -1,11 +1,14 @@
 //jshint esversion:6
-require('dotenv').config() //tem que ficar na primeira linha
+// require('dotenv').config() //tem que ficar na primeira linha
 const express = require('express')
 const _ = require('lodash')
 const bodyParser = require('body-parser')
 const ejs = require('ejs')
 const mongoose = require('mongoose')
-const encrypt = require("mongoose-encryption") //encripta ao chamar o metodo save() do mongoose e desencrypta ao chamar o metodo find()
+// const encrypt = require("mongoose-encryption") //encripta ao chamar o metodo save() do mongoose e desencrypta ao chamar o metodo find()
+const md5 = require('md5') //hash md5 (rapido de ser quebrado)
+
+
 
 const port = 3000
 
@@ -34,14 +37,14 @@ const userSchemma = new Schema({
     required: [true, 'Insira a senha']
   }
 })
-userSchemma.plugin(encrypt, {
-  secret: process.env.SECRET,
-  encryptedFields: ['password'], //Faz com que somente o campo password seja encriptado
-  excludeFromEncryption: ['email'] //Faz com que somente o campo email NÃO seja encriptado
-}) //isso tem que ser feito antes de criar o mongoose.model
+// userSchemma.plugin(encrypt, {
+//   secret: process.env.SECRET,
+//   encryptedFields: ['password'], //Faz com que somente o campo password seja encriptado
+//   excludeFromEncryption: ['email'] //Faz com que somente o campo email NÃO seja encriptado
+// }) //isso tem que ser feito antes de criar o mongoose.model
 const User = new mongoose.model('User', userSchemma)
 
-
+console.log(md5("Quero transa inferno de virus"));
 app.get('/', (req, res) => {
   res.render('home')
 })
@@ -54,7 +57,7 @@ app.get('/register', (req, res) => {
 
 app.post('/register', (req, res) => {
   const email = req.body.username
-  const password = req.body.password
+  const password = md5(req.body.password)
   const newUser = new User({
     email: email,
     password: password
@@ -70,7 +73,7 @@ app.post('/register', (req, res) => {
 
 app.post('/login', (req, res) => {
   const email = req.body.username
-  const password = req.body.password
+  const password = md5(req.body.password)
   User.findOne({
     email: email
   }, (err, foundUser) => {
