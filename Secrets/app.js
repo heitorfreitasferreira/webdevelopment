@@ -1,4 +1,5 @@
 //jshint esversion:6
+require('dotenv').config() //tem que ficar na primeira linha
 const express = require('express')
 const _ = require('lodash')
 const bodyParser = require('body-parser')
@@ -22,7 +23,7 @@ mongoose.connect('mongodb://localhost:27017/userDB', {
   useUnifiedTopology: true
 })
 const Schema = mongoose.Schema
-
+// console.log(process.env.SECRET);
 const userSchemma = new Schema({
   email: {
     type: String,
@@ -33,9 +34,8 @@ const userSchemma = new Schema({
     required: [true, 'Insira a senha']
   }
 })
-const secret = '3sseehosecredodomeusite!'
 userSchemma.plugin(encrypt, {
-  secret: secret,
+  secret: process.env.SECRET,
   encryptedFields: ['password'], //Faz com que somente o campo password seja encriptado
   excludeFromEncryption: ['email'] //Faz com que somente o campo email NÃO seja encriptado
 }) //isso tem que ser feito antes de criar o mongoose.model
