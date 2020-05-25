@@ -57,12 +57,32 @@ app.post('/register', (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.render("secret")
+      res.render("secrets")
     }
   })
 })
 
-
+app.post('/login', (req, res) => {
+  const email = req.body.username
+  const password = req.body.password
+  User.findOne({
+    email: email
+  }, (err, foundUser) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (foundUser) {
+        if (foundUser.password === password) {
+          res.render("secrets")
+        } else {
+          console.log("Wrong password");
+        }
+      } else {
+        res.render('register')
+      }
+    }
+  })
+})
 
 
 
