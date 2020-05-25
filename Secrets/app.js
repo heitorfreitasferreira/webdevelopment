@@ -6,9 +6,9 @@ const bodyParser = require('body-parser')
 const ejs = require('ejs')
 const mongoose = require('mongoose')
 // const encrypt = require("mongoose-encryption") //encripta ao chamar o metodo save() do mongoose e desencrypta ao chamar o metodo find()
-const md5 = require('md5') //hash md5 (rapido de ser quebrado)
-
-
+// const md5 = require('md5') //hash md5 (rapido de ser quebrado)
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
 const port = 3000
 
@@ -44,7 +44,7 @@ const userSchemma = new Schema({
 // }) //isso tem que ser feito antes de criar o mongoose.model
 const User = new mongoose.model('User', userSchemma)
 
-console.log(md5("Quero transa inferno de virus"));
+// console.log(md5("Quero transa inferno de virus"));
 app.get('/', (req, res) => {
   res.render('home')
 })
@@ -56,24 +56,28 @@ app.get('/register', (req, res) => {
 })
 
 app.post('/register', (req, res) => {
+
   const email = req.body.username
-  const password = md5(req.body.password)
-  const newUser = new User({
-    email: email,
-    password: password
+
+  bcrypt.hash(req.body.password, saltRounds, (error, hash) => {
+    const newUser = new User({
+      email: email,
+      password: hash
+    })
+    newUser.save((err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("secrets")
+      }
+    })
   })
-  newUser.save((err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("secrets")
-    }
-  })
+
 })
 
 app.post('/login', (req, res) => {
   const email = req.body.username
-  const password = md5(req.body.password)
+
   User.findOne({
     email: email
   }, (err, foundUser) => {
@@ -81,11 +85,13 @@ app.post('/login', (req, res) => {
       console.log(err);
     } else {
       if (foundUser) {
-        if (foundUser.password === password) {
-          res.render("secrets")
-        } else {
-          console.log("Wrong password");
-        }
+        bcrypt.compare(req.body.password, saltRounds, (error, result) => {
+          if (result === true) {
+            res.render("secrets")
+          } else {
+            console.log("Wrong password");
+          }
+        })
       } else {
         res.render('register')
       }
