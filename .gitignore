@@ -1,6 +1,7 @@
 *.pdf
 .DS_Store
 *.DS_Store
+.vscode
 #NODE GITIGNORE TEMPLATE
 
 logs
